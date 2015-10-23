@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+attr_accessor :remember_token
       def show
         @user = User.find(params[:id])
       end
@@ -13,12 +13,11 @@ class UsersController < ApplicationController
                                   :password, :password_confirmation)
         @user = User.new(secure_params)
         if @user.save
-           # Handle a successful save.
-           flash[:success] = "Welcome to the Twitter App!" 
-           redirect_to @user
+          remember @user       #  NEW LINE
+      flash[:success] = "Welcome to the Sample App!"    # NEW LINE
+          redirect_to @user
         else
-        	render 'new' 
-            # Handle an unsuccessful save.     
+          render 'new'
         end
       end
  end
