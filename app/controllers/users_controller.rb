@@ -13,11 +13,11 @@ attr_accessor :remember_token
                                   :password, :password_confirmation)
         @user = User.new(secure_params)
         if @user.save
-          remember @user       #  NEW LINE
+      remember @user       #  NEW LINE
       flash[:success] = "Welcome to the Sample App!"    # NEW LINE
-          redirect_to @user
-        else
-          render 'new'
-        end
+      redirect_to @user  
+    else
+      render 'new'
+    end
       end
  end

@@ -7,6 +7,17 @@ module SessionsHelper
         cookies.permanent[:remember_token] = user.remember_token
       end
 
+    def create
+        user = User.find_by(email: params[:session][:email].downcase)
+        if user && user.authenticate(params[:session][:password])
+          remember user       # NEW LINE
+          redirect_to user
+        else
+          flash.now[:danger] = 'Invalid email/password combination'
+          render 'new'
+        end
+      end
+
       # Returns the user corresponding to the remember token cookie.
        def current_user
         if (user_id = cookies.signed[:user_id])
@@ -18,6 +29,7 @@ module SessionsHelper
         end
       end
 
+
       # Returns true if a user is logged in, false otherwise.
       def logged_in?
         !current_user.nil?
@@ -27,7 +39,7 @@ module SessionsHelper
         user == current_user
       end
 
-      # Forgets a persistent session.
+     # Forgets a persistent session.
       def forget(user)
           user.forget
           cookies.delete(:user_id)
