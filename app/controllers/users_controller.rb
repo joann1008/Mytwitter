@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 attr_accessor :remember_token
       def show
         @user = User.find(params[:id])
+        @microposts = @user.microposts    # NEW LINE
       end
 
       def new

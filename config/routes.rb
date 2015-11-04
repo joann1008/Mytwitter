@@ -4,6 +4,7 @@
 
   get 'users/new'
            resources :users
+           resources :microposts, only: [:create, :destroy]     
           root 'static_pages#home'
 
           get 'help'    => 'static_pages#help'
